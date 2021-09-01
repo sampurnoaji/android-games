@@ -1,5 +1,7 @@
 package io.android.core.domain.model
 
+import java.io.Serializable
+
 data class Game(
     val id: Int,
     val amiiboSeries: String,
@@ -9,5 +11,6 @@ data class Game(
     val image: String,
     val name: String,
     val tail: String,
-    val type: String
-)
+    val type: String,
+    val isFavorite: Boolean
+): Serializable

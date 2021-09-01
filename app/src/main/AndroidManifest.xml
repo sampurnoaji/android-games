@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Games"
         android:usesCleartextTraffic="true">
+        <activity android:name=".detail.GameDetailActivity"></activity>
         <activity android:name=".list.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

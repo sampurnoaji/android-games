@@ -9,12 +9,14 @@ import io.android.games.databinding.ItemListGameBinding
 
 class GameListAdapter(private var games: List<Game>): RecyclerView.Adapter<GameListAdapter.ContentViewHolder>() {
 
+    var onItemClick: ((Game) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
         return ContentViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
-        holder.bind(games[position])
+        holder.bind(games[position], onItemClick)
     }
 
     override fun getItemCount(): Int {
@@ -37,13 +39,17 @@ class GameListAdapter(private var games: List<Game>): RecyclerView.Adapter<GameL
             }
         }
 
-        fun bind(game: Game) {
+        fun bind(game: Game, onItemClick: ((Game) -> Unit)?) {
             with(binding) {
                 Glide.with(root.context)
                     .load(game.image)
                     .into(imgPoster)
                 tvCharacter.text = game.character
                 tvSeries.text = game.amiiboSeries
+
+                container.setOnClickListener {
+                    onItemClick?.invoke(game)
+                }
             }
         }
     }

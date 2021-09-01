@@ -46,6 +46,7 @@ object GameMapper {
                 name = it.name,
                 tail = it.tail,
                 type = it.type,
+                isFavorite = it.isFavorite
             )
         }
     }

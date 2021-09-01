@@ -9,6 +9,7 @@ import io.android.core.data.Resource
 import io.android.core.util.viewBinding
 import io.android.games.R
 import io.android.games.databinding.ActivityMainBinding
+import io.android.games.detail.GameDetailActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         with(binding.rvGames) {
             layoutManager = GridLayoutManager(this@MainActivity, 2)
             adapter = gameListAdapter
+        }
+        gameListAdapter.onItemClick = { game ->
+            GameDetailActivity.start(this, game)
         }
     }
 
