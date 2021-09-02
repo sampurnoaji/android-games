@@ -2,9 +2,11 @@
     <string name="app_name">Games</string>
     <string name="game_image">Game image</string>
     <string name="something_wrong">Oops.. something went wrong</string>
+    <string name="no_data">Empty data</string>
     <string name="favorite">Favorite</string>
     <string name="character">Character</string>
     <string name="name">Name</string>
     <string name="game_series">Game Series</string>
     <string name="amiibo_series">Amiibo Series</string>
+    <string name="title_favorite">Favorite</string>
 </resources>
