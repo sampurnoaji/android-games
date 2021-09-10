@@ -33,7 +33,7 @@ class GameDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        val game = intent.getSerializableExtra(INTENT_KEY_GAME) as? Game
+        val game = intent.getParcelableExtra<Game>(INTENT_KEY_GAME)
         showGameDetail(game)
     }
 

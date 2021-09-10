@@ -1,7 +1,9 @@
 package io.android.core.domain.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Game(
     val id: Int,
     val amiiboSeries: String,
@@ -13,4 +15,4 @@ data class Game(
     val tail: String,
     val type: String,
     val isFavorite: Boolean
-): Serializable
+): Parcelable

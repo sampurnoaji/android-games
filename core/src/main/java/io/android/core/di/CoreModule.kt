@@ -1,6 +1,7 @@
 package io.android.core.di
 
 import androidx.room.Room
+import io.android.core.BuildConfig
 import io.android.core.data.repository.GameRepositoryImpl
 import io.android.core.data.source.local.LocalDataSource
 import io.android.core.data.source.local.room.GameDatabase
@@ -26,13 +27,7 @@ val databaseModule = module {
 }
 
 val networkModule = module {
-    single {
-        OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build()
-    }
+    single { provideOkHttpClient() }
     single {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://www.amiiboapi.com/api/")
@@ -41,6 +36,16 @@ val networkModule = module {
             .build()
         retrofit.create(ApiService::class.java)
     }
+}
+
+fun provideOkHttpClient(): OkHttpClient {
+    val client = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+    if (BuildConfig.DEBUG) {
+        client.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+    }
+    return client.build()
 }
 
 val repositoryModule = module {
