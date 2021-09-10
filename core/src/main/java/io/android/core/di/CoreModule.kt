@@ -8,7 +8,6 @@ import io.android.core.data.source.local.room.GameDatabase
 import io.android.core.data.source.remote.RemoteDataSource
 import io.android.core.data.source.remote.network.ApiService
 import io.android.core.domain.repository.GameRepository
-import io.android.core.util.AppExecutors
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -51,10 +50,9 @@ fun provideOkHttpClient(): OkHttpClient {
 val repositoryModule = module {
     single { LocalDataSource(get()) }
     single { RemoteDataSource(get()) }
-    factory { AppExecutors() }
     single<GameRepository> {
         GameRepositoryImpl(
-            localDataSource = get(), remoteDataSource = get(), appExecutors = get()
+            localDataSource = get(), remoteDataSource = get()
         )
     }
 }

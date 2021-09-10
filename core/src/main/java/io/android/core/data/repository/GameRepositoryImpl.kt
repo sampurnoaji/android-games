@@ -8,15 +8,13 @@ import io.android.core.data.source.remote.network.ApiResponse
 import io.android.core.data.source.remote.response.GameListResponse
 import io.android.core.domain.model.Game
 import io.android.core.domain.repository.GameRepository
-import io.android.core.util.AppExecutors
 import io.android.core.util.mapper.GameMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class GameRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
+    private val localDataSource: LocalDataSource
 ) : GameRepository {
 
     override fun getGames(): Flow<Resource<List<Game>>> {
@@ -48,10 +46,8 @@ class GameRepositoryImpl(
         }
     }
 
-    override fun setFavoriteGame(game: Game, state: Boolean) {
+    override suspend fun setFavoriteGame(game: Game, state: Boolean) {
         val gameEntity = GameMapper.toEntity(game)
-        appExecutors.diskIO().execute {
-            localDataSource.updateFavoriteGame(gameEntity, state)
-        }
+        localDataSource.updateFavoriteGame(gameEntity, state)
     }
 }

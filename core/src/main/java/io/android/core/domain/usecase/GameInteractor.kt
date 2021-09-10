@@ -14,7 +14,7 @@ class GameInteractor(private val repository: GameRepository): GameUseCase {
         return repository.getFavoriteGames()
     }
 
-    override fun setFavoriteGame(game: Game, state: Boolean) {
+    override suspend fun setFavoriteGame(game: Game, state: Boolean) {
         repository.setFavoriteGame(game, state)
     }
 }
