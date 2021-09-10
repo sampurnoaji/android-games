@@ -3,6 +3,7 @@ package io.android.games.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -39,7 +40,8 @@ class GameDetailActivity : AppCompatActivity() {
 
     private fun showGameDetail(game: Game?) {
         game?.let {
-            Glide.with(this).load(game.image).placeholder(R.color.purple_200).into(binding.imgPoster)
+            Glide.with(this).load(game.image).placeholder(R.color.purple_200)
+                .into(binding.imgPoster)
             with(binding.content) {
                 tvCharacter.text = game.character
                 tvName.text = game.name
@@ -58,19 +60,32 @@ class GameDetailActivity : AppCompatActivity() {
     }
 
     private fun showFavoriteStatus(favorite: Boolean) {
-        with(binding.fab) {
-            if (favorite) setImageDrawable(
-                ContextCompat.getDrawable(
-                    this@GameDetailActivity,
-                    R.drawable.ic_baseline_favorite_24
+        with(binding) {
+            if (favorite) {
+                fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this@GameDetailActivity,
+                        R.drawable.ic_baseline_favorite_24
+                    )
                 )
-            )
-            else setImageDrawable(
-                ContextCompat.getDrawable(
+                Toast.makeText(
                     this@GameDetailActivity,
-                    R.drawable.ic_baseline_favorite_border_24
+                    getString(R.string.add_to_favorite),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this@GameDetailActivity,
+                        R.drawable.ic_baseline_favorite_border_24
+                    )
                 )
-            )
+                Toast.makeText(
+                    this@GameDetailActivity,
+                    getString(R.string.delete_from_favorite),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }

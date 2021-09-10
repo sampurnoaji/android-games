@@ -9,4 +9,6 @@
     <string name="game_series">Game Series</string>
     <string name="amiibo_series">Amiibo Series</string>
     <string name="title_favorite">Favorite</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="delete_from_favorite">Delete from favorite</string>
 </resources>
