@@ -3,7 +3,7 @@ version: 2.1
 # Use a package of configuration called an orb.
 orbs:
   android: circleci/android@0.2.1
-  
+
 jobs:
   build:
     executor: android/android
