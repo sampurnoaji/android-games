@@ -9,6 +9,8 @@ import io.android.core.data.source.remote.RemoteDataSource
 import io.android.core.data.source.remote.network.ApiService
 import io.android.core.domain.repository.GameRepository
 import java.util.concurrent.TimeUnit
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,8 +21,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 val databaseModule = module {
     factory { get<GameDatabase>().gameDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("games".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(androidContext(), GameDatabase::class.java, "game.db")
             .fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
             .build()
     }
 }
